@@ -1,0 +1,51 @@
+# Build folders
+bin/
+obj/
+out/
+publish/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider IDE files
+.idea/
+
+# VS Code files
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Dotnet Core temporary files
+*.pidb
+*.svclog
+*.pdb
+*.dll
+*.exe
+
+# User secrets
+secrets.json
+
+# ASP.NET / Blazor
+# Ignore node_modules inside wwwroot/lib if you have any JS libraries installed
+wwwroot/lib/**/node_modules/
+wwwroot/lib/**/package-lock.json
+wwwroot/lib/**/yarn.lock
+
+# Exclude Blazor build-generated CSS and JS files from git
+wwwroot/LibraryPortalBlazorWebAssemblyApp.styles.css
+wwwroot/_framework/
+
+# Keep your local CSS (app.css) and Bootstrap folder
+!wwwroot/css/app.css
+!wwwroot/lib/bootstrap/dist/css/bootstrap.min.css
