@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LibraryPortalBlazorServerApp.Components.Models;
+namespace LibraryPortalBlazorWebAssemblyApp.Models;
 
 public class Author
 {

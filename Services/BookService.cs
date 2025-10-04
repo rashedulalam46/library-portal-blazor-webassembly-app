@@ -2,7 +2,7 @@ using LibraryPortalBlazorServerApp.Components.Models;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 
-namespace LibraryPortalBlazorServerApp.Components.Services;
+namespace LibraryPortalBlazorWebAssemblyApp.Services;
 
 public class BookService
 {

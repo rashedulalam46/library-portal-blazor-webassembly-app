@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using LibraryPortalBlazorServerApp.Components.Models;
 using Microsoft.Extensions.Options;
 
-namespace LibraryPortalBlazorServerApp.Components.Services;
+namespace LibraryPortalBlazorWebAssemblyApp.Services;
 
 public class PublisherService
 {

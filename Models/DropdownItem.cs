@@ -1,4 +1,4 @@
-namespace LibraryPortalBlazorServerApp.Models;
+namespace LibraryPortalBlazorWebAssemblyApp.Models;
 
 public class DropdownItem
 {
