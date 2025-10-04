@@ -1,0 +1,269 @@
+@page "/books"
+@using LibraryPortalBlazorServerApp.Components.Models
+@using LibraryPortalBlazorServerApp.Components.Services
+@using LibraryPortalBlazorServerApp.Models
+@using LibraryPortalBlazorServerApp.Services
+@inject BookService BookService
+@inject DropdownService DropdownService
+
+<h3>Books</h3>
+
+<button class="btn btn-primary mb-3" @onclick="OpenAddModal">Add New</button>
+
+@if (books == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!books.Any())
+{
+    <p>No books found.</p>
+}
+else
+{
+    <div class="d-flex mb-2">
+        <input type="text" class="form-control" placeholder="Search by title, author, publisher, category, isbn"
+            @bind="searchText" @bind:event="oninput" />
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Category</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Active</th>
+                <th>Publish Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in GetFilteredBooks())
+            {
+                <tr>
+                    <td>@book.BookId</td>
+                    <td>@book.Title</td>
+                    <td>@book.AuthorName</td>
+                    <td>@book.PublisherName</td>
+                    <td>@book.CategoryName</td>
+                    <td>@book.ISBN</td>
+                    <td>@book.Price</td>
+                    <td>@(book.Active ? "Yes" : "No")</td>
+                    <td>@(book.PublishDate?.ToString("yyyy-MM-dd") ?? "")</td>
+                    <td>
+                        <button class="btn btn-sm btn-info me-2" @onclick="() => OpenEditModal(book)">Edit</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => OpenDeleteModal(book.BookId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Add/Edit Modal -->
+@if (isModalVisible)
+{
+    <EditForm Model="currentBook" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">@modalTitle</h5>
+                        <button type="button" class="btn-close" @onclick="CloseModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Title</label>
+                            <InputText class="form-control" @bind-Value="currentBook.title" />
+                            <ValidationMessage For="@(() => currentBook.title)" />
+                        </div>
+                        <div class="mb-2">
+                            <label>Description</label>
+                            <InputTextArea class="form-control" @bind-Value="currentBook.description" />
+                            <ValidationMessage For="@(() => currentBook.description)" />
+                        </div>
+                        <div class="mb-2">
+                            <label>Author</label>
+                            <InputSelect class="form-control" @bind-Value="currentBook.author_id">
+                                <option value="">-- Select Author --</option>
+                                @foreach (var author in authors)
+                                {
+                                    <option value="@author.Value">@author.Text</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => currentBook.author_id)" />
+                        </div>
+                        <div class="mb-2">
+                            <label>Publisher</label>
+                            <InputSelect class="form-control" @bind-Value="currentBook.publisher_id">
+                                <option value="">-- Select Publisher --</option>
+                                @foreach (var publisher in publishers)
+                                {
+                                    <option value="@publisher.Value">@publisher.Text</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => currentBook.publisher_id)" />
+                        </div>
+                        <div class="mb-2">
+                            <label>Category</label>
+                            <InputSelect class="form-control" @bind-Value="currentBook.category_id">
+                                <option value="">-- Select Category --</option>
+                                @foreach (var category in categories)
+                                {
+                                    <option value="@category.Value">@category.Text</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => currentBook.category_id)" />
+                        </div>
+                        <div class="mb-2">
+                            <label>ISBN</label>
+                            <InputText class="form-control" @bind-Value="currentBook.ISBN" />
+                            <ValidationMessage For="@(() => currentBook.ISBN)" />
+                        </div>
+                        <div class="mb-2">
+                            <label>Price</label>
+                            <InputNumber class="form-control" @bind-Value="currentBook.price" />
+                            <ValidationMessage For="@(() => currentBook.price)" />
+                        </div>
+                        <div class="form-check mb-2">
+                            <InputCheckbox class="form-check-input" @bind-Value="currentBook.active" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="CloseModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+<!-- Delete Confirmation Modal -->
+@if (isDeleteModalVisible)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" @onclick="CloseDeleteModal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this book?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="CloseDeleteModal">No</button>
+                    <button class="btn btn-danger" @onclick="DeleteConfirmed">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<BookRead> books;
+    private Book currentBook;
+    private string modalTitle;
+    private bool isModalVisible;
+    private bool isDeleteModalVisible;
+    private int deleteBookId;
+
+    private List<DropdownItem> authors = new();
+    private List<DropdownItem> categories = new();
+    private List<DropdownItem> publishers = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = (await BookService.GetBooksAsync()).ToList();
+        authors = await DropdownService.GetAuthorsAsync();
+        categories = await DropdownService.GetCategoriesAsync();
+        publishers = await DropdownService.GetPublishersAsync();
+    }
+
+    private void OpenAddModal()
+    {
+        currentBook = new Book();
+        modalTitle = "Add New Book";
+        isModalVisible = true;
+    }
+
+    private void OpenEditModal(BookRead book)
+    {
+        currentBook = new Book
+        {
+            book_id = book.BookId,
+            title = book.Title,
+            description = book.Description,
+            publisher_id = book.PublisherId,
+            category_id = book.CategoryId,
+            author_id = book.AuthorId,
+            ISBN = book.ISBN,
+            price = book.Price,
+            active = book.Active
+        };
+        modalTitle = "Edit Book";
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        currentBook = new Book();
+        StateHasChanged();
+        isModalVisible = false;
+    }
+
+
+    private async Task Save()
+    {
+        if (currentBook.book_id == 0)
+            await BookService.AddBookAsync(currentBook);
+        else
+            await BookService.UpdateBookAsync(currentBook);
+
+        books = (await BookService.GetBooksAsync()).ToList();
+        isModalVisible = false;
+    }
+
+    private void OpenDeleteModal(int id)
+    {
+        deleteBookId = id;
+        isDeleteModalVisible = true;
+    }
+
+    private void CloseDeleteModal() => isDeleteModalVisible = false;
+
+    private async Task DeleteConfirmed()
+    {
+        await BookService.DeleteBookAsync(deleteBookId);
+        books = (await BookService.GetBooksAsync()).ToList();
+        isDeleteModalVisible = false;
+    }
+
+    //Search functionality
+    private string searchText = string.Empty;
+    private IEnumerable<BookRead> GetFilteredBooks()
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return books;
+        }
+
+        return books.Where(b =>
+        (b.Title?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.Description?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.AuthorName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.PublisherName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.CategoryName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.ISBN?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));
+    }
+    //End Search functionality
+
+
+}

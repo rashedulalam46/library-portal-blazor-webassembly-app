@@ -1,0 +1,203 @@
+@page "/categories"
+@using LibraryPortalBlazorServerApp.Components.Models
+@using LibraryPortalBlazorServerApp.Components.Services
+@inject CategoryService CategoryService
+
+<h3>Categories</h3>
+
+<button class="btn btn-primary mb-3" @onclick="OpenAddModal">Add New</button>
+
+@if (categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!categories.Any())
+{
+    <p>No categories found.</p>
+}
+else
+{
+     <div class="d-flex mb-2">
+        <input type="text" class="form-control" placeholder="Search by name, description" @bind="searchText"
+            @bind:event="oninput" />
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Category ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Active</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in GetFilteredCategories())
+            {
+                <tr>
+                    <td>@category.category_id</td>
+                    <td>@category.category_name</td>
+                    <td>@category.description</td>
+                    <td>@(category.active ? "Yes" : "No")</td>
+                    <td>@(category.create_date?.ToString("yyyy-MM-dd"))</td>
+                    <td>
+                        <button class="btn btn-sm btn-info me-2" @onclick="() => OpenEditModal(category)">Edit</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => OpenDeleteModal(category.category_id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Add/Edit Modal -->
+@if (isModalVisible)
+{
+    <EditForm Model="currentCategory" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">@modalTitle</h5>
+                        <button type="button" class="btn-close" @onclick="CloseModal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Name</label>
+                            <InputText class="form-control" @bind-Value="currentCategory.category_name" />
+                            <ValidationMessage For="@(() => currentCategory.category_name)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Description</label>
+                            <InputTextArea class="form-control" @bind-Value="currentCategory.description" />
+                            <ValidationMessage For="@(() => currentCategory.description)" />
+                        </div>
+
+                        <div class="form-check mb-2">
+                            <InputCheckbox class="form-check-input" @bind-Value="currentCategory.active" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="CloseModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+
+<!-- Delete Confirmation Modal -->
+@if (isDeleteModalVisible)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" @onclick="CloseDeleteModal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this category?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="CloseDeleteModal">No</button>
+                    <button class="btn btn-danger" @onclick="DeleteConfirmed">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Category> categories;
+    private Category currentCategory;
+    private string modalTitle;
+    private bool isModalVisible;
+    private bool isDeleteModalVisible;
+    private int deleteCategoryId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = (await CategoryService.GetCategoriesAsync()).ToList();
+    }
+
+    private void OpenAddModal()
+    {
+        currentCategory = new Category();
+        modalTitle = "Add New Category";
+        isModalVisible = true;
+    }
+
+    private void OpenEditModal(Category category)
+    {
+        currentCategory = new Category
+        {
+            category_id = category.category_id,
+            category_name = category.category_name,
+            description = category.description,
+            active = category.active
+        };
+        modalTitle = "Edit Category";
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        currentCategory = new Category();
+        StateHasChanged();
+        isModalVisible = false;
+    }
+
+    private async Task Save()
+    {
+        if (currentCategory.category_id == 0)
+            await CategoryService.AddCategoryAsync(currentCategory);
+        else
+            await CategoryService.UpdateCategoryAsync(currentCategory);
+
+        categories = (await CategoryService.GetCategoriesAsync()).ToList();
+        isModalVisible = false;
+    }
+
+    private void OpenDeleteModal(int id)
+    {
+        deleteCategoryId = id;
+        isDeleteModalVisible = true;
+    }
+
+    private void CloseDeleteModal() => isDeleteModalVisible = false;
+
+    private async Task DeleteConfirmed()
+    {
+        await CategoryService.DeleteCategoryAsync(deleteCategoryId);
+        categories = (await CategoryService.GetCategoriesAsync()).ToList();
+        isDeleteModalVisible = false;
+    }
+
+    //Search functionality
+    private string searchText = string.Empty;
+    private IEnumerable<Category> GetFilteredCategories()
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return categories;
+        }
+
+        return categories.Where(c =>
+        (c.category_name?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (c.description?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));        
+
+    }
+    //End Search functionality
+}

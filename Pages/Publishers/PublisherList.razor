@@ -1,0 +1,229 @@
+@page "/publishers"
+@using LibraryPortalBlazorServerApp.Components.Models
+@using LibraryPortalBlazorServerApp.Components.Services
+@inject PublisherService PublisherService
+
+<h3>Publishers</h3>
+
+<button class="btn btn-primary mb-3" @onclick="OpenAddModal">Add New</button>
+
+@if (publishers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!publishers.Any())
+{
+    <p>No publishers found.</p>
+}
+else
+{
+    <div class="d-flex mb-2">
+        <input type="text" class="form-control" placeholder="Search by name, address, phone" @bind="searchText"
+            @bind:event="oninput" />
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Publisher ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var publisher in GetFilteredPublishers())
+            {
+                <tr>
+                    <td>@publisher.publisher_id</td>
+                    <td>@publisher.publisher_name</td>
+                    <td>@publisher.address</td>
+                    <td>@publisher.phone</td>
+                    <td>@publisher.email</td>
+                    <td>@(publisher.active ? "Yes" : "No")</td>
+                    <td>@(publisher.create_date?.ToString("yyyy-MM-dd"))</td>
+                    <td>
+                        <button class="btn btn-sm btn-info me-2" @onclick="() => OpenEditModal(publisher)">Edit</button>
+                        <button class="btn btn-sm btn-danger"
+                            @onclick="() => OpenDeleteModal(publisher.publisher_id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Add/Edit Modal -->
+@if (isModalVisible)
+{
+    <EditForm Model="currentPublisher" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">@modalTitle</h5>
+                        <button type="button" class="btn-close" @onclick="CloseModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Name</label>
+                            <InputText class="form-control" @bind-Value="currentPublisher.publisher_name" />
+                            <ValidationMessage For="@(() => currentPublisher.publisher_name)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Address</label>
+                            <InputText class="form-control" @bind-Value="currentPublisher.address" />
+                            <ValidationMessage For="@(() => currentPublisher.address)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Phone</label>
+                            <InputText class="form-control" type="tel" @bind-Value="currentPublisher.phone" />
+                            <ValidationMessage For="@(() => currentPublisher.phone)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Email</label>
+                            <InputText class="form-control" @bind-Value="currentPublisher.email" />
+                            <ValidationMessage For="@(() => currentPublisher.email)" />
+                        </div>
+
+                        <div class="form-check mb-2">
+                            <InputCheckbox class="form-check-input" @bind-Value="currentPublisher.active" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="CloseModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+
+
+<!-- Delete Confirmation Modal -->
+@if (isDeleteModalVisible)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" @onclick="CloseDeleteModal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this publisher?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="CloseDeleteModal">No</button>
+                    <button class="btn btn-danger" @onclick="DeleteConfirmed">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Publisher> publishers;
+    private Publisher currentPublisher = new Publisher(); // not Publishers
+    private string? modalTitle;
+    private bool isModalVisible;
+    private bool isDeleteModalVisible;
+    private int deletePublisherId;
+
+    //Search functionality
+    private string searchText = string.Empty;
+    private IEnumerable<Publisher> GetFilteredPublishers()
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return publishers;
+        }
+
+        return publishers.Where(p =>
+        (p.publisher_name?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (p.address?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (p.phone?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));
+
+    }
+    //End Search functionality
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        publishers = (await PublisherService.GetPublishersAsync()).ToList();
+    }
+
+    private void OpenAddModal()
+    {
+        currentPublisher = new Publisher
+        {
+            active = true // default to true
+        };
+        modalTitle = "Add New Publisher";
+        isModalVisible = true;
+    }
+
+    private void OpenEditModal(Publisher publisher)
+    {
+
+        currentPublisher = new Publisher
+        {
+            publisher_id = publisher.publisher_id,
+            publisher_name = publisher.publisher_name,
+            address = publisher.address,
+            phone = publisher.phone,
+            email = publisher.email,
+            active = publisher.active
+        };
+        modalTitle = "Edit Publisher";
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        currentPublisher = new Publisher();
+        StateHasChanged();
+        isModalVisible = false;
+    }
+
+    private async Task Save()
+    {
+        if (currentPublisher.publisher_id == 0)
+            await PublisherService.AddPublisherAsync(currentPublisher);
+        else
+            await PublisherService.UpdatePublisherAsync(currentPublisher);
+
+        publishers = (await PublisherService.GetPublishersAsync()).ToList();
+        isModalVisible = false;
+    }
+
+    private void OpenDeleteModal(int id)
+    {
+        deletePublisherId = id;
+        isDeleteModalVisible = true;
+    }
+
+    private void CloseDeleteModal() => isDeleteModalVisible = false;
+
+    private async Task DeleteConfirmed()
+    {
+        await PublisherService.DeletePublisherAsync(deletePublisherId);
+        publishers = (await PublisherService.GetPublishersAsync()).ToList();
+        isDeleteModalVisible = false;
+    }
+}

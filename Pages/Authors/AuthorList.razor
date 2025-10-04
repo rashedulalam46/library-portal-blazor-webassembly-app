@@ -1,0 +1,244 @@
+@page "/authors"
+@using LibraryPortalBlazorServerApp.Components.Models
+@using LibraryPortalBlazorServerApp.Components.Services
+@using LibraryPortalBlazorServerApp.Models
+@using LibraryPortalBlazorServerApp.Services
+@inject AuthorService AuthorService
+@inject DropdownService DropdownService
+
+<h3>Authors</h3>
+
+<button class="btn btn-primary mb-3" @onclick="OpenAddModal">Add New</button>
+
+@if (authors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!authors.Any())
+{
+    <p>No authors found.</p>
+}
+else
+{
+    <div class="d-flex mb-2">
+        <input type="text" class="form-control" placeholder="Search by name, address, phone" @bind="searchText"
+            @bind:event="oninput" />
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Author ID</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in GetFilteredAuthors())
+            {
+                <tr>
+                    <td>@author.author_id</td>
+                    <td>@author.author_name</td>
+                    <td>@author.country</td>
+                    <td>@author.address</td>
+                    <td>@author.phone</td>
+                    <td>@author.email</td>
+                    <td>@(author.active ? "Yes" : "No")</td>
+                    <td>@(author.create_date?.ToString("yyyy-MM-dd"))</td>
+                    <td>
+                        <button class="btn btn-sm btn-info me-2" @onclick="() => OpenEditModal(author)">Edit</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => OpenDeleteModal(author.author_id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Add/Edit Modal -->
+@if (isModalVisible)
+{
+    <EditForm Model="currentAuthor" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">@modalTitle</h5>
+                        <button type="button" class="btn-close" @onclick="CloseModal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Name</label>
+                            <InputText class="form-control" @bind-Value="currentAuthor.author_name" />
+                            <ValidationMessage For="@(() => currentAuthor.author_name)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Country</label>
+                            <InputSelect class="form-control" @bind-Value="currentAuthor.country">
+                                <option value="">-- Select Country --</option>
+                                @foreach (var country in countries)
+                                {
+                                    <option value="@country.Value">@country.Text</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => currentAuthor.country)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Address</label>
+                            <InputText class="form-control" @bind-Value="currentAuthor.address" />
+                            <ValidationMessage For="@(() => currentAuthor.address)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Phone</label>
+                            <InputText class="form-control" type="tel" @bind-Value="currentAuthor.phone" />
+                            <ValidationMessage For="@(() => currentAuthor.phone)" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Email</label>
+                            <InputText class="form-control" @bind-Value="currentAuthor.email" />
+                            <ValidationMessage For="@(() => currentAuthor.email)" />
+                        </div>
+
+                        <div class="form-check mb-2">
+                            <InputCheckbox class="form-check-input" @bind-Value="currentAuthor.active" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="CloseModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+
+<!-- Delete Confirmation Modal -->
+@if (isDeleteModalVisible)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" @onclick="CloseDeleteModal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this author?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="CloseDeleteModal">No</button>
+                    <button class="btn btn-danger" @onclick="DeleteConfirmed">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Author> authors;
+    private Author currentAuthor;
+    private string modalTitle;
+    private bool isModalVisible;
+    private bool isDeleteModalVisible;
+    private int deleteAuthorId;
+
+    private List<DropdownItem> countries = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        authors = (await AuthorService.GetAuthorsAsync()).ToList();
+        countries = await DropdownService.GetCountriesAsync();
+    }
+
+    private void OpenAddModal()
+    {
+        currentAuthor = new Author();
+        modalTitle = "Add New Author";
+        isModalVisible = true;
+
+    }
+
+    private void OpenEditModal(Author author)
+    {
+        currentAuthor = new Author
+        {
+            author_id = author.author_id,
+            author_name = author.author_name,
+            country = author.country,
+            address = author.address,
+            phone = author.phone,
+            email = author.email,
+            active = author.active
+        };
+        modalTitle = "Edit Author";
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        currentAuthor = new Author();
+        StateHasChanged();
+        isModalVisible = false;
+    }
+
+
+    private async Task Save()
+    {
+        if (currentAuthor.author_id == 0)
+            await AuthorService.AddAuthorAsync(currentAuthor);
+        else
+            await AuthorService.UpdateAuthorAsync(currentAuthor);
+
+        authors = (await AuthorService.GetAuthorsAsync()).ToList();
+        isModalVisible = false;
+    }
+
+    private void OpenDeleteModal(int id)
+    {
+        deleteAuthorId = id;
+        isDeleteModalVisible = true;
+    }
+
+    private void CloseDeleteModal() => isDeleteModalVisible = false;
+
+    private async Task DeleteConfirmed()
+    {
+        await AuthorService.DeleteAuthorAsync(deleteAuthorId);
+        authors = (await AuthorService.GetAuthorsAsync()).ToList();
+        isDeleteModalVisible = false;
+    }
+
+    //Search functionality
+    private string searchText = string.Empty;
+    private IEnumerable<Author> GetFilteredAuthors()
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return authors;
+        }
+
+        return authors.Where(a =>
+        (a.author_name?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (a.address?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (a.phone?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));
+
+    }
+    //End Search functionality
+}
