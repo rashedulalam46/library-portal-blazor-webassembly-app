@@ -1,3 +1,11 @@
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.csproj.AssemblyReference.cache
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\rpswa.dswa.cache.json
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.AssemblyInfoInputs.cache
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.AssemblyInfo.cs
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.csproj.CoreCompileInputs.cache
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.MvcApplicationPartsAssemblyInfo.cache
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.sourcelink.json
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\blazor.webassembly.js
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\Microsoft.AspNetCore.Authorization.z6jo10m0rd.wasm
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\Microsoft.AspNetCore.Components.65wbz7t8mt.wasm
@@ -199,6 +207,8 @@ E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\icudt_CJK.tjcz0u77k5.dat
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.hk42735yat.wasm
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.qgk2vv1vi1.pdb
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\blazor.boot.json
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\blazor.webassembly.js.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\Microsoft.AspNetCore.Authorization.z6jo10m0rd.wasm.gz
@@ -401,6 +411,8 @@ E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\icudt_CJK.tjcz0u77k5.dat.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat.gz
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.hk42735yat.wasm.gz
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.qgk2vv1vi1.pdb.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\blazor.boot.json.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.staticwebassets.runtime.json
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.staticwebassets.endpoints.json
@@ -606,14 +618,6 @@ E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\dotnet.runtime.js.m
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\icudt_CJK.dat
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\icudt_EFIGS.dat
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\icudt_no_CJK.dat
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.csproj.AssemblyReference.cache
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\rpswa.dswa.cache.json
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.GeneratedMSBuildEditorConfig.editorconfig
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.AssemblyInfoInputs.cache
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.AssemblyInfo.cs
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.csproj.CoreCompileInputs.cache
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.MvcApplicationPartsAssemblyInfo.cache
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.sourcelink.json
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\webcil\Microsoft.AspNetCore.Authorization.wasm
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\webcil\Microsoft.AspNetCore.Components.wasm
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\webcil\Microsoft.AspNetCore.Components.Forms.wasm
@@ -1067,6 +1071,9 @@ E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\1p708s5x
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\azhtjy0y8l-tjcz0u77k5.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\phhf57iurr-tptq2av103.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\we8jl555hv-lfu7j35m59.gz
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\d7ey50td1x-hk42735yat.gz
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\c3by4hzv2q-qgk2vv1vi1.gz
+E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\3ww84zuyyc-8abif4rlkm.gz
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\staticwebassets.build.json
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\staticwebassets.build.json.cache
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\staticwebassets.development.json
@@ -1076,10 +1083,3 @@ E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazor
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\refint\LibraryPortalBlazorWebAssemblyApp.dll
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\LibraryPortalBlazorWebAssemblyApp.pdb
 E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\ref\LibraryPortalBlazorWebAssemblyApp.dll
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.gl2hbjkbrw.wasm
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.2t3b7isox1.pdb
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.gl2hbjkbrw.wasm.gz
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\bin\Debug\net9.0\wwwroot\_framework\LibraryPortalBlazorWebAssemblyApp.2t3b7isox1.pdb.gz
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\d7ey50td1x-gl2hbjkbrw.gz
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\c3by4hzv2q-2t3b7isox1.gz
-E:\GitHub\LibraryPortalBlazorWebAssemblyApp\obj\Debug\net9.0\compressed\3ww84zuyyc-4vb7utkjv7.gz

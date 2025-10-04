@@ -42,18 +42,18 @@ else
             @foreach (var book in GetFilteredBooks())
             {
                 <tr>
-                    <td>@book.BookId</td>
-                    <td>@book.Title</td>
-                    <td>@book.AuthorName</td>
-                    <td>@book.PublisherName</td>
-                    <td>@book.CategoryName</td>
-                    <td>@book.ISBN</td>
-                    <td>@book.Price</td>
-                    <td>@(book.Active ? "Yes" : "No")</td>
-                    <td>@(book.PublishDate?.ToString("yyyy-MM-dd") ?? "")</td>
+                    <td>@book.book_id</td>
+                    <td>@book.title</td>
+                    <td>@book.author_name</td>
+                    <td>@book.publisher_name</td>
+                    <td>@book.category_name</td>
+                    <td>@book.isbn</td>
+                    <td>@book.price</td>
+                    <td>@(book.active ? "Yes" : "No")</td>
+                    <td>@(book.publish_date?.ToString("yyyy-MM-dd") ?? "")</td>
                     <td>
                         <button class="btn btn-sm btn-info me-2" @onclick="() => OpenEditModal(book)">Edit</button>
-                        <button class="btn btn-sm btn-danger" @onclick="() => OpenDeleteModal(book.BookId)">Delete</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => OpenDeleteModal(book.book_id)">Delete</button>
                     </td>
                 </tr>
             }
@@ -121,8 +121,8 @@ else
                         </div>
                         <div class="mb-2">
                             <label>ISBN</label>
-                            <InputText class="form-control" @bind-Value="currentBook.ISBN" />
-                            <ValidationMessage For="@(() => currentBook.ISBN)" />
+                            <InputText class="form-control" @bind-Value="currentBook.isbn" />
+                            <ValidationMessage For="@(() => currentBook.isbn)" />
                         </div>
                         <div class="mb-2">
                             <label>Price</label>
@@ -197,15 +197,15 @@ else
     {
         currentBook = new Book
         {
-            book_id = book.BookId,
-            title = book.Title,
-            description = book.Description,
-            publisher_id = book.PublisherId,
-            category_id = book.CategoryId,
-            author_id = book.AuthorId,
-            ISBN = book.ISBN,
-            price = book.Price,
-            active = book.Active
+            book_id = book.book_id,
+            title = book.title,
+            description = book.description,
+            publisher_id = book.publisher_id,
+            category_id = book.category_id,
+            author_id = book.author_id,
+            isbn = book.isbn,
+            price = book.price,
+            active = book.active
         };
         modalTitle = "Edit Book";
         isModalVisible = true;
@@ -255,12 +255,12 @@ else
         }
 
         return books.Where(b =>
-        (b.Title?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-        (b.Description?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-        (b.AuthorName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-        (b.PublisherName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-        (b.CategoryName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-        (b.ISBN?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));
+        (b.title?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.description?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.author_name?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.publisher_name?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.category_name?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+        (b.isbn?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));
     }
     //End Search functionality
 

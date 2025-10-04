@@ -9,10 +9,10 @@ public class BookService
     private readonly HttpClient _http;
     private readonly string _baseUrl;
 
-    public BookService(HttpClient http, IOptions<ApiSettings> options)
+    public BookService(HttpClient http, IConfiguration config)
     {
-        _http = http;
-        _baseUrl = $"{options.Value.BaseUrl}/books";
+         _http = http;
+        _baseUrl = config["ApiSettings:BaseUrl"] + "/books";
     }
 
     public async Task<List<BookRead>> GetBooksAsync()
