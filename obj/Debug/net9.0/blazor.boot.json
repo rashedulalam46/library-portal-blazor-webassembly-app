@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "LibraryPortalBlazorWebAssemblyApp",
   "resources": {
-    "hash": "sha256-0UWK5Dad8cAO3PCaE6mOQVjj9bSJythIKveAz8X0cXU=",
+    "hash": "sha256-SeBocWP5EW2/Wv4l101oc4onRWcdbxE3igdIbjlaW1U=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Authorization.z6jo10m0rd.wasm": "Microsoft.AspNetCore.Authorization.wasm",
       "Microsoft.AspNetCore.Components.65wbz7t8mt.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -201,8 +201,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "LibraryPortalBlazorWebAssemblyApp.635v0rjxym.wasm": "LibraryPortalBlazorWebAssemblyApp.wasm",
-      "LibraryPortalBlazorWebAssemblyApp.0zldacvlvc.pdb": "LibraryPortalBlazorWebAssemblyApp.pdb"
+      "LibraryPortalBlazorWebAssemblyApp.pitjs7strq.wasm": "LibraryPortalBlazorWebAssemblyApp.wasm",
+      "LibraryPortalBlazorWebAssemblyApp.t1x82mktiw.pdb": "LibraryPortalBlazorWebAssemblyApp.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.9ih887ebfz.js": "sha256-oS7IRiQoVt9ThQ7Y2UM3XoeY0JqPD02cg9IvRdufn2w="
@@ -412,14 +412,18 @@
       "WindowsBase.vy2l5u79y6.wasm": "sha256-ufB9Mo5joMyUs3DzXWWBFFIZNEVrt6h9N5stYB6Oln4=",
       "mscorlib.xd6mv31d55.wasm": "sha256-1YSLR2eZt3ceALFV//vZUF2AloxVil3VlrW1zZYPSEI=",
       "netstandard.kaml52uspo.wasm": "sha256-HLEwBpLfzKw2/zGSVzHzFJxznCkt/WIjahrziiMrOpA=",
-      "LibraryPortalBlazorWebAssemblyApp.635v0rjxym.wasm": "sha256-gufD4lZaEwYK2FVzRywv/mb0XYiBqo7F0nZCpl2L2JE="
+      "LibraryPortalBlazorWebAssemblyApp.pitjs7strq.wasm": "sha256-z8sDde/IJG3a0V75xrWOJgxFRiVoqfM2t74grfdFmK4="
     },
     "pdb": {
-      "LibraryPortalBlazorWebAssemblyApp.0zldacvlvc.pdb": "sha256-fNqGKBZeXlI7LMQOL8z4UjFuafJU/z34ckkuEfk5+Z8="
+      "LibraryPortalBlazorWebAssemblyApp.t1x82mktiw.pdb": "sha256-r8yPrNoZnqS6HBHR5FPT05qhblI4dNknJA+BWe0HqfQ="
     }
   },
   "cacheBootResources": true,
   "debugLevel": -1,
+  "appsettings": [
+    "../appsettings.Development.json",
+    "../appsettings.json"
+  ],
   "globalizationMode": "sharded",
   "extensions": {
     "blazor": {}
