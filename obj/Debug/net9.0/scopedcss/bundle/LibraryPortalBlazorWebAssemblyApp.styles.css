@@ -160,3 +160,58 @@ main[b-bz0hjmhex1] {
         overflow-y: auto;
     }
 }
+
+
+/* =========================
+   Aligning Icons and Text
+   ========================= */
+/* 1) Ensure nav links are flex containers and icons/text are centered */
+.nav-scrollable .nav-link[b-0r5e0t2aac] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;              /* space between icon and text (me-2 equivalent) */
+  padding-left: 0;          /* keep your px-3 on parent, adjust if needed */
+}
+
+/* 2) Normalize Bootstrap Icons (font) so they behave like inline images */
+.nav-scrollable .nav-link .bi[b-0r5e0t2aac] {
+  display: inline-block;
+  width: 1.25rem;           /* icon box size */
+  height: 1.25rem;
+  line-height: 1.25rem;     /* center glyph inside box */
+  font-size: 1.25rem;       /* ensures glyph fits */
+  vertical-align: middle;
+  flex: 0 0 1.25rem;        /* prevent flex grow/shrink */
+}
+
+/* 3) Normalize the SVG-as-background icon classes (like your Home class) */
+.bi-house-door-fill-nav-menu[b-0r5e0t2aac],
+.bi-plus-square-fill-nav-menu[b-0r5e0t2aac],
+.bi-list-nested-nav-menu[b-0r5e0t2aac],
+.bi-book-nav-menu[b-0r5e0t2aac],
+.bi-people-nav-menu[b-0r5e0t2aac],
+.bi-list-task-nav-menu[b-0r5e0t2aac],
+.bi-building-nav-menu[b-0r5e0t2aac] {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  flex: 0 0 1.25rem;
+}
+
+/* 4) Fallback: if you use <span class="bi bi-book"> but also custom class naming, target both */
+.nav-scrollable .nav-link span[class^="bi-"][b-0r5e0t2aac] {
+  /* keeps existing behavior but aligns */
+}
+
+/* 5) Small visual tweak for text (optional) */
+.nav-scrollable .nav-link span[b-0r5e0t2aac] {
+  display: inline-block;
+}
+
+/* =========================
+   END Aligning Icons and Text
+   ========================= */
