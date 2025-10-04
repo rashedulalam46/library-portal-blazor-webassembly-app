@@ -1,4 +1,4 @@
-using LibraryPortalBlazorServerApp.Components.Models;
+using LibraryPortalBlazorWebAssemblyApp.Models;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 

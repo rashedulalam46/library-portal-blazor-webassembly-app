@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
-using LibraryPortalBlazorServerApp.Models;
+using LibraryPortalBlazorWebAssemblyApp.Models;
 
 namespace LibraryPortalBlazorWebAssemblyApp.Services;
 
