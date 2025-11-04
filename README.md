@@ -16,9 +16,9 @@ A web-based library portal built using **Blazor** for managing books, categories
 
 ## Architecture & Tech Stack
 
-- **Frontend / UI**: Blazor Server App
+- **Frontend / UI**: Blazor Webassembly
 - **Backend / API Layer**: ASP.NET Core Web API  
-- **Data / Storage**: QL Server
+- **Data / Storage**: MS SQL Server
 - **Languages & Tools**:  
   - C# (Blazor, .NET 9.0)  
   - HTML / CSS  
@@ -42,11 +42,11 @@ Before running, ensure you have:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/rashedulalam46/library-portal-blazor-server-app.git
-   cd library-portal-blazor-server-app
+   git clone https://github.com/rashedulalam46/library-portal-blazor-webassembly-app.git
+   cd library-portal-blazor-webassembly-app
    ```
    
-2. Open the solution in your IDE (e.g. LibraryPortalBlazorServerApp.sln).
+2. Open the solution in your IDE (e.g. LibraryPortalBlazorWebAssemblyApp.sln).
 
  - Configure settings: In appsettings.json / appsettings.Development.json, update the API endpoint or connection string.
  - If you have an ApiSettings.cs, adjust base URLs etc.
@@ -74,8 +74,8 @@ Or run from your IDE with debugging.
 ├── ApiSettings.cs      # Configuration helper  
 ├── Program.cs          # App startup  
 ├── Routes.razor         # Routing definitions  
-├── LibraryPortalBlazorServerApp.csproj  
-├── LibraryPortalBlazorServerApp.sln  
+├── LibraryPortalBlazorWebAssemblyApp.csproj  
+├── LibraryPortalBlazorWebAssemblyApp.sln  
 ├── appsettings.json  
 └── appsettings.Development.json  
 
@@ -87,6 +87,7 @@ Or run from your IDE with debugging.
 | `appsettings.Development.json` | Local / development overrides              |
 | `ApiSettings.cs`               | Strongly-typed class for API configuration |
 ```
+
 
 
 
