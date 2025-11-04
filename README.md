@@ -81,12 +81,14 @@ Or run from your IDE with debugging.
 
 ```
 # Configuration
+```
 | File                           | Purpose                                    |
 | ------------------------------ | ------------------------------------------ |
 | `appsettings.json`             | Production settings (e.g. API URL, keys)   |
 | `appsettings.Development.json` | Local / development overrides              |
 | `ApiSettings.cs`               | Strongly-typed class for API configuration |
 ```
+
 
 
 
