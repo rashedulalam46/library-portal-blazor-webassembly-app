@@ -80,6 +80,7 @@ Or run from your IDE with debugging.
 └── appsettings.Development.json  
 
 ```
+
 # Configuration
 ```
 | File                           | Purpose                                    |
@@ -88,6 +89,7 @@ Or run from your IDE with debugging.
 | `appsettings.Development.json` | Local / development overrides              |
 | `ApiSettings.cs`               | Strongly-typed class for API configuration |
 ```
+
 
 
 
